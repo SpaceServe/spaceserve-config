@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "spaceserve-data",
+  "version": "${version}",
+  "name": "SpaceServe Data Api",
+  "description": "Provides an easy to use way of creating configs and saving data.",
+  "authors": [
+    "SpaceClouds42"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": "",
+    "issues": ""
+  },
+  "license": "LGPL",
+  "icon": "assets/data/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "value": "org.spaceserve.data.Common::INSTANCE"
+      }
+    ]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.7.1",
+    "fabric-language-kotlin": ">=1.5.0+kotlin.1.4.31",
+    "minecraft": ">=1.16.5"
+  }
+}
