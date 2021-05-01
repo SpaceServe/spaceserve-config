@@ -41,8 +41,11 @@ object Common : ModInitializer {
         test(Blocks.DIRT, config.block)
         test(Enchantments.MULTISHOT, config.enchantment)
 
-        println("${tests - fails}/$tests tests passed")
+        config.integer = 2
+        config.save()
+        test(config, config.load())
 
+        println("${tests - fails}/$tests tests passed")
         exitProcess(1)
     }
 
