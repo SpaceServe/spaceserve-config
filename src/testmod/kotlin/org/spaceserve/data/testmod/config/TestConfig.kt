@@ -7,12 +7,11 @@ import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.Enchantments
 import net.minecraft.item.Item
 import net.minecraft.item.Items
+import net.minecraft.text.LiteralText
+import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import org.spaceserve.data.config.IConfigure
-import org.spaceserve.data.serializers.BlockSerializer
-import org.spaceserve.data.serializers.EnchantmentSerializer
-import org.spaceserve.data.serializers.IdentifierSerializer
-import org.spaceserve.data.serializers.ItemSerializer
+import org.spaceserve.data.serializers.*
 
 /**
  * An example config using [IConfigure]. Be sure to define default values for all options.
@@ -56,7 +55,13 @@ data class TestConfig(
      * A Minecraft [Enchantment] option, uses [EnchantmentSerializer] for custom serialization handling
      */
     @Serializable(with = EnchantmentSerializer::class)
-    var enchantment: Enchantment = Enchantments.EFFICIENCY
+    var enchantment: Enchantment = Enchantments.EFFICIENCY,
+
+    /**
+     * A Minecraft [Text] option, uses [TextSerializer] for custom serialization handling
+     */
+    @Serializable(with = TextSerializer::class)
+    var text: Text = LiteralText("default"),
 ) : IConfigure {
     /**
      * Overriding [fileName] to save to a file named something other than the class' name
