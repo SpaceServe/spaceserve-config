@@ -18,7 +18,6 @@ plugins {
     id("org.jetbrains.dokka")
     kotlin("jvm")
     kotlin("plugin.serialization")
-    `maven-publish`
 }
 
 repositories {

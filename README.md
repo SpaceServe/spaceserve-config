@@ -9,14 +9,14 @@ available are: Block, Enchantment, Identifier, Item, Text
 ```kotlin
 repositories {
     maven {
-        name = "JitPack"
-        url = uri("https://jitpack.io")
+        name = "Modrinth"
+        url = uri("https://api.modrinth.com/maven")
     }
 }
 
 dependencies {
     // Config
-    modImplementation("com.github.SpaceServe:spaceserve-config:0.1.1")
-    include("com.github.SpaceServe:spaceserve-config:0.1.1")
+    modImplementation("maven.modrinth:config:0.1.1")
+    include("maven.modrinth:config:0.1.1")
 }
 ```
