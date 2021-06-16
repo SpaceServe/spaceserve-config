@@ -1,4 +1,4 @@
-package org.spaceserve.data.test.config
+package org.spaceserve.config.test
 
 import kotlinx.serialization.Serializable
 import net.minecraft.block.Block
@@ -10,8 +10,8 @@ import net.minecraft.item.Items
 import net.minecraft.text.LiteralText
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
-import org.spaceserve.data.config.IConfigure
-import org.spaceserve.data.serializers.*
+import org.spaceserve.config.IConfigure
+import org.spaceserve.config.serializers.*
 
 /**
  * An example config using [IConfigure]. Be sure to define default values for all options. Default is

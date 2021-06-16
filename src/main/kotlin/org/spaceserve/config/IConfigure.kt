@@ -1,4 +1,4 @@
-package org.spaceserve.data.config
+package org.spaceserve.config
 
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer

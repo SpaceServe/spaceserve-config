@@ -1,4 +1,4 @@
-package org.spaceserve.data.serializers
+package org.spaceserve.config.serializers
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException

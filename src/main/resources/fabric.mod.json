@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
-  "id": "spaceserve-data",
+  "id": "spaceserve-config",
   "version": "${version}",
-  "name": "SpaceServe Data Api",
-  "description": "Provides an easy to use way of creating configs and saving data.",
+  "name": "SpaceServe Config API",
+  "description": "Provides a super simple way to create configs.",
   "authors": [
     "SpaceClouds42"
   ],
   "contact": {
     "homepage": "https://github.com/SpaceServe",
-    "sources": "https://github.com/SpaceServe/spaceserve-data",
-    "issues": "https://github.com/SpaceServe/spaceserve-data/issues"
+    "sources": "https://github.com/SpaceServe/spaceserve-config",
+    "issues": "https://github.com/SpaceServe/spaceserve-config/issues"
   },
   "license": "LGPL-3.0",
-  "icon": "assets/data/icon.png",
+  "icon": "assets/config/icon.png",
 
   "environment": "*",
 

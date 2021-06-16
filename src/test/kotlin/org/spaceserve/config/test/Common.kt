@@ -1,4 +1,4 @@
-package org.spaceserve.data.test
+package org.spaceserve.config.test
 
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -9,8 +9,6 @@ import net.minecraft.item.Items
 import net.minecraft.text.LiteralText
 import net.minecraft.util.Identifier
 import org.junit.Assert.*
-import org.spaceserve.data.test.config.TestConfig
-import org.spaceserve.data.test.config.TestEnum
 import java.nio.file.Files
 import kotlin.system.exitProcess
 

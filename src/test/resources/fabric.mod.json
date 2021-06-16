@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "spaceserve-data-testmod",
+  "id": "spaceserve-config-testmod",
   "version": "${version}",
-  "name": "SpaceServe Data Api Testmod",
-  "description": "Testmod for SpaceServe Data API",
+  "name": "SpaceServe Config API Testmod",
+  "description": "Testmod for SpaceServe Config API",
   "authors": [
     "SpaceClouds42"
   ],
@@ -13,7 +13,7 @@
   "entrypoints": {
     "main": [
       {
-        "value": "org.spaceserve.data.test.Common::INSTANCE"
+        "value": "org.spaceserve.config.test.Common::INSTANCE"
       }
     ]
   },
