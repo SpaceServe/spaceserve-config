@@ -13,7 +13,7 @@
   "entrypoints": {
     "main": [
       {
-        "value": "org.spaceserve.data.testmod.Common::INSTANCE"
+        "value": "org.spaceserve.data.test.Common::INSTANCE"
       }
     ]
   },

@@ -1,4 +1,4 @@
-package org.spaceserve.data.testmod.config
+package org.spaceserve.data.test.config
 
 import kotlinx.serialization.Serializable
 import net.minecraft.block.Block
@@ -14,7 +14,19 @@ import org.spaceserve.data.config.IConfigure
 import org.spaceserve.data.serializers.*
 
 /**
- * An example config using [IConfigure]. Be sure to define default values for all options.
+ * An example config using [IConfigure]. Be sure to define default values for all options. Default is
+ * ```json
+ * {
+ *   "integer": 0,
+ *   "boolean": false,
+ *   "enum": "OPTION1",
+ *   "identifier": "minecraft:air",
+ *   "item": "minecraft:diamond",
+ *   "block": "minecraft:acacia_sign",
+ *   "enchantment": "minecraft:efficiency",
+ *   "text": "{\"text\":\"default\"}"
+ * }
+ * ```
  */
 @Serializable
 data class TestConfig(
@@ -43,7 +55,7 @@ data class TestConfig(
      * A Minecraft [Item] option, uses [ItemSerializer] for custom serialization handling
      */
     @Serializable(with = ItemSerializer::class)
-    var item: Item = Items.BIRCH_SLAB,
+    var item: Item = Items.DIAMOND,
 
     /**
      * A Minecraft [Block] option, uses [BlockSerializer] for custom serialization handling
@@ -67,5 +79,5 @@ data class TestConfig(
      * Overriding [fileName] to save to a file named something other than the class' name
      */
     override val fileName: String
-        get() = "ExampleConfig"
+        get() = "TestConfig"
 }

@@ -1,4 +1,4 @@
-package org.spaceserve.data.testmod.config
+package org.spaceserve.data.test.config
 
 enum class TestEnum {
     OPTION1,
