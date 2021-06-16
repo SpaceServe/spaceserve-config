@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     // Config
-    modImplementation("com.github.SpaceServe:spaceserve-config:0.1.0")
-    include("com.github.SpaceServe:spaceserve-config:0.1.0")
+    modImplementation("com.github.SpaceServe:spaceserve-config:0.1.1")
+    include("com.github.SpaceServe:spaceserve-config:0.1.1")
 }
 ```
