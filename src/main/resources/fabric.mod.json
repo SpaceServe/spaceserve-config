@@ -8,17 +8,18 @@
     "SpaceClouds42"
   ],
   "contact": {
-    "homepage": "",
-    "sources": "",
-    "issues": ""
+    "homepage": "https://github.com/SpaceServe",
+    "sources": "https://github.com/SpaceServe/spaceserve-data",
+    "issues": "https://github.com/SpaceServe/spaceserve-data/issues"
   },
-  "license": "LGPL",
+  "license": "LGPL-3.0",
   "icon": "assets/data/icon.png",
+
   "environment": "*",
 
   "depends": {
-    "fabricloader": ">=0.7.1",
-    "fabric-language-kotlin": ">=1.5.0+kotlin.1.4.31",
-    "minecraft": ">=1.16.5"
+    "fabricloader": ">=0.11.6",
+    "fabric-language-kotlin": ">=1.6.0+kotlin.1.5.0",
+    "minecraft": ">=1.17"
   }
 }
