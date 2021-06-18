@@ -1,5 +1,6 @@
 package org.spaceserve.config
 
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import net.fabricmc.loader.api.FabricLoader
@@ -8,6 +9,7 @@ import java.nio.file.Files
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.full.primaryConstructor
 import kotlin.reflect.full.starProjectedType
 
 /**
@@ -56,15 +58,24 @@ interface IConfigure {
      * @return this [config][IConfigure] object
      */
     fun load(): IConfigure {
-        val loadedConfig = Json.decodeFromString(
-            serializer(this::class.starProjectedType),
+        val loadedConfig = try {
             if (configFile.exists()) {
-                configFile.readText()
+                Json.decodeFromString(
+                    serializer(this::class.starProjectedType),
+                    configFile.readText()
+                )
             } else {
+                // write defaults to file if config file is missing
                 configFile.createNewFile()
-                "{}"
+                throw SerializationException("This is caught and will force the default config to be saved")
+            } as IConfigure
+        } catch (err: SerializationException) {
+            // catch malformed configs, use defaults, and save properly
+            Json.decodeFromString(serializer(this::class.starProjectedType), "{}").let {
+                (it as IConfigure).save()
+                it
             }
-        ) as IConfigure
+        }
 
         val loadedProperties = loadedConfig::class.memberProperties
             .filter { it.visibility == KVisibility.PUBLIC }
