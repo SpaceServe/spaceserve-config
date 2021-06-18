@@ -16,7 +16,7 @@ import org.spaceserve.config.serializers.ItemSerializer
 import org.spaceserve.config.serializers.TextSerializer
 
 @Serializable
-data class SerializableItemStack(
+internal data class SerializableItemStack(
     @Serializable(with = ItemSerializer::class)
     val item: Item = Items.AIR,
 
@@ -34,7 +34,7 @@ data class SerializableItemStack(
 )
 
 @Serializable
-data class LeveledEnchantment(
+internal data class LeveledEnchantment(
     @Serializable(with = EnchantmentSerializer::class)
     @SerialName("id")
     val enchantment: Enchantment,
@@ -44,7 +44,7 @@ data class LeveledEnchantment(
 )
 
 @Serializable(with = TextSerializer::class)
-data class Display(
+internal data class Display(
     val name: Text? = null,
 
     val lore: List<Text>? = null,
@@ -58,10 +58,8 @@ data class Display(
 /**
  * Setting to null will remove all display data. Setting to a [Display] with null properties will only mutate the
  * non-null properties.
- *
- * To remove a specific display property use its corresponding `removeCustom<property>` method
  */
-var ItemStack.display: Display?
+internal var ItemStack.display: Display?
     get() {
         return if (this.hasTag() && this.tag!!.contains("display", 10)) {
             val displayNbt = this.tag!!.getCompound("display")
@@ -113,13 +111,3 @@ var ItemStack.display: Display?
             displayNbt.put("Lore", loreNbtList)
         }
     }
-
-fun ItemStack.removeCustomLore() = this.removeDisplayTag("Lore")
-
-fun ItemStack.removeCustomColor() = this.removeDisplayTag("color")
-
-private fun ItemStack.removeDisplayTag(tagName: String) {
-    if (this.hasTag() && this.tag!!.contains("display", 10)) {
-        this.tag!!.getCompound("display").remove(tagName)
-    }
-}
