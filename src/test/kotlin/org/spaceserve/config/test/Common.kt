@@ -40,6 +40,20 @@ object Common : ModInitializer {
     }
 
     private fun testLoad() {
+        // Test loading missing config
+        writeConfigFile("")
+
+        var loadedConfig = TestConfig().load() as TestConfig
+        val defaultConfig = TestConfig()
+        assertEquals(defaultConfig, loadedConfig)
+
+        // Test loading malformed config
+        writeConfigFile("}{")
+
+        loadedConfig.load()
+        assertEquals(defaultConfig, loadedConfig)
+
+        // Test loading valid config
         val testLoadConfigText = """{
   "integer": 100,
   "boolean": true,
@@ -62,27 +76,16 @@ object Common : ModInitializer {
       }
     ],
     "repairCost": 34
+  },
+  "gameProfile": {
+    "name": "SpaceClouds42",
+    "uuid": "ffbd1a86-36fd-4ab7-9cb1-a730cc7709eb"
   }
 }"""
+        writeConfigFile(testLoadConfigText)
 
-        // Create the config file
-        Files.createDirectories(
-            net.fabricmc.loader.api.FabricLoader
-                .getInstance()
-                .configDir
-        )
-            .toFile()
-            .resolve("TestConfig.json")
-            .let {
-                it.createNewFile()
-                it.writeText(
-                    testLoadConfigText
-                )
-            }
-
-        val loadedConfig = TestConfig().load() as TestConfig
+        loadedConfig = TestConfig().load() as TestConfig
         val expectedConfig = Json.decodeFromString<TestConfig>(testLoadConfigText)
-
         assertEquals(expectedConfig, loadedConfig)
     }
 
@@ -122,6 +125,20 @@ object Common : ModInitializer {
         assertEquals(defaultConfig, testConfig.reset(true))
         // Saves to file the defaults
         assertEquals(defaultConfig, TestConfig().load())
+    }
+
+    private fun writeConfigFile(data: String) {
+        Files.createDirectories(
+            net.fabricmc.loader.api.FabricLoader
+                .getInstance()
+                .configDir
+        )
+            .toFile()
+            .resolve("TestConfig.json")
+            .let {
+                it.createNewFile()
+                it.writeText(data)
+            }
     }
 }
 
