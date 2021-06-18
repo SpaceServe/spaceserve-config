@@ -6,6 +6,7 @@ import net.minecraft.block.Blocks
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.Enchantments
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.text.LiteralText
 import net.minecraft.text.Text
@@ -74,6 +75,9 @@ data class TestConfig(
      */
     @Serializable(with = TextSerializer::class)
     var text: Text = LiteralText("default"),
+
+    @Serializable(with = ItemStackSerializer::class)
+    var itemStack: ItemStack = ItemStack(item, 1)
 ) : IConfigure {
     /**
      * Overriding [fileName] to save to a file named something other than the class' name

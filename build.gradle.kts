@@ -45,6 +45,9 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 }
 
+minecraft {
+    accessWidener("src/main/resources/config.accesswidener")
+}
 
 loom {
     runs {

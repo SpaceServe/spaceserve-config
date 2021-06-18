@@ -5,21 +5,38 @@ import kotlinx.serialization.json.Json
 import net.fabricmc.api.ModInitializer
 import net.minecraft.block.Blocks
 import net.minecraft.enchantment.Enchantments
+import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.text.LiteralText
 import net.minecraft.util.Identifier
-import org.junit.Assert.*
+import org.junit.Assert
+import org.spaceserve.config.IConfigure
 import java.nio.file.Files
+import kotlin.reflect.KMutableProperty
+import kotlin.reflect.KVisibility
+import kotlin.reflect.full.memberProperties
 import kotlin.system.exitProcess
 
 object Common : ModInitializer {
     override fun onInitialize() {
+        testSerializers()
         testLoad()
         testSave()
         testReset()
-        // testSerializers()
+
+        println("All tests successful!")
 
         exitProcess(0)
+    }
+
+    private fun testSerializers() {
+        val defaultConfig = TestConfig()
+        val serializer = Json { encodeDefaults = true; prettyPrint = true }
+
+        assertEquals(
+            defaultConfig,
+            serializer.decodeFromString<TestConfig>(serializer.encodeToString(TestConfig.serializer(), defaultConfig)),
+        )
     }
 
     private fun testLoad() {
@@ -30,7 +47,22 @@ object Common : ModInitializer {
   "identifier": "minecraft:the_nether",
   "block": "minecraft:stone",
   "enchantment": "minecraft:mending",
-  "text": "{\"text\":\"test load config\", \"color\":\"green\"}"
+  "text": "{\"text\":\"test load config\", \"color\":\"green\"}",
+  "itemStack": {
+    "item": "minecraft:netherite_sword",
+    "count": 1,
+    "enchantments": [
+      {
+        "id": "minecraft:sharpness",
+        "lvl": 5
+      },
+      {
+        "id": "minecraft:fire_aspect",
+        "lvl": 2
+      }
+    ],
+    "repairCost": 34
+  }
 }"""
 
         // Create the config file
@@ -93,3 +125,28 @@ object Common : ModInitializer {
     }
 }
 
+private fun assertEquals(expected: Any?, actual: Any?) {
+    // Future proof special case for ItemStack because Mojang is stupid
+    if (expected is IConfigure && actual is IConfigure) {
+        val expectedProps = expected::class.memberProperties
+            .filter { it.visibility == KVisibility.PUBLIC }
+            .filterIsInstance<KMutableProperty<*>>()
+
+        actual::class.memberProperties
+            .filter { it.visibility == KVisibility.PUBLIC }
+            .filterIsInstance<KMutableProperty<*>>()
+            .forEachIndexed { index, property ->
+                val expectedProp = expectedProps[index].getter.call(expected)
+                val actualProp = property.getter.call(actual)
+
+                if (expectedProp is ItemStack && actualProp is ItemStack) {
+                    Assert.assertTrue(
+                        "ItemStack [$expectedProp] equals ItemStack [$actualProp]",
+                        ItemStack.areEqual(expectedProp, actualProp),
+                    )
+                }
+            }
+    } else {
+        Assert.assertEquals(expected, actual)
+    }
+}

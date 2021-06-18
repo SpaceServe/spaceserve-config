@@ -1,0 +1,3 @@
+accessWidener	v1  named
+accessible field net/minecraft/item/ItemStack LORE_STYLE Lnet/minecraft/text/Style;
+accessible method net/minecraft/item/ItemStack getHideFlags ()I
