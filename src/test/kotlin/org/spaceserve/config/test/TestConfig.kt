@@ -1,5 +1,7 @@
 package org.spaceserve.config.test
 
+import com.mojang.authlib.GameProfile
+import com.mojang.authlib.GameProfileRepository
 import kotlinx.serialization.Serializable
 import net.minecraft.block.Block
 import net.minecraft.block.Blocks
@@ -26,6 +28,14 @@ import org.spaceserve.config.serializers.*
  *   "block": "minecraft:acacia_sign",
  *   "enchantment": "minecraft:efficiency",
  *   "text": "{\"text\":\"default\"}"
+ *   "itemStack": {
+ *     "item": "minecraft:diamond",
+ *     "count": 1
+ *   },
+ *   "gameProfile": {
+ *     "uuid": null,
+ *     "name": "Player42"
+ *   }
  * }
  * ```
  */
@@ -77,7 +87,10 @@ data class TestConfig(
     var text: Text = LiteralText("default"),
 
     @Serializable(with = ItemStackSerializer::class)
-    var itemStack: ItemStack = ItemStack(item, 1)
+    var itemStack: ItemStack = ItemStack(item, 1),
+
+    @Serializable(with = GameProfileSerializer::class)
+    var gameProfile: GameProfile = GameProfile(null, "Player42"),
 ) : IConfigure {
     /**
      * Overriding [fileName] to save to a file named something other than the class' name
